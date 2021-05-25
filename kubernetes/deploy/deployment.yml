@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-service-test
+spec:
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: backend-service-test
+  template:
+    spec:
+      containers:
+        - name: backend-service-test
+          image: fake-image
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 0.1
+          ports:
+            - containerPort: 80
+              name: http
+          envFrom:
+          - configMapRef:
+              name: backend-service-test-config
